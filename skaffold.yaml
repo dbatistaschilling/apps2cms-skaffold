@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./apps2cms-infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: apps2cms/apps2cms-auth-api
+      context: apps2cms-auth-api
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
